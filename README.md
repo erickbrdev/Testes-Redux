@@ -1,1 +1,1 @@
-# Testes-Redux
+Desenvolvendo um projeto com react-router e redux, e após o término verificar a funcionalidade atráves de testes (RTL)
