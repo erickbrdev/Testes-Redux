@@ -31,21 +31,21 @@ class Register extends Component {
           </label> 
         </div>
         <div className="infos-register">
-        <label className="label-checkbox">
-            <p className="label-register">Pessoa Fisica</p>
+        <label className="label-radio">            
            <Input 
-            type = 'checkbox'
-            name = 'checkbox'        
+            type = 'radio'
+            name = 'radio'        
             className = 'input-register'    
            />
+           <p className="label-register">Pessoa Fisica</p>
           </label> 
-          <label className="label-checkbox">
-            <p className="label-register">Pessoa Júridica</p>
+          <label className="label-radio">            
            <Input 
-            type = 'checkbox'
-            name = 'checkbox'     
+            type = 'radio'
+            name = 'radio'     
             className = 'input-register'       
            />
+           <p className="label-register">Pessoa Júridica</p>
           </label> 
         </div>
         <div className="infos-register">
@@ -91,13 +91,13 @@ class Register extends Component {
           </label> 
         </div>
         <div className="infos-register">
-        <label className="container-checkbox" htmlFor="'input-checkbox-register'">
+        <label className="container-radio" htmlFor="'input-radio-register'">
             <p className="label-register">Eu li e concordo com os termos de uso</p>           
         </label> 
         <Input 
-            type = 'checkbox'
-            name = 'checkbox'
-            id = 'input-checkbox-register'                                  
+            type = 'radio'
+            name = 'radio'
+            id = 'input-radio-register'                                  
            />
         </div>
       </form>

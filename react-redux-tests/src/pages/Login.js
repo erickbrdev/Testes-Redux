@@ -1,8 +1,23 @@
 import React, { Component } from "react";
 import Input from "../form/Inputs";
+import { connect } from "react-redux";
+import { loginEmail, loginPassword, loginCheckbox } from "../redux/action/login";
+import testReducer from "../redux/reducer/reducerTest";
 
-class Login extends Component {
+class Login extends Component {   
+
+ 
+  handleChangeLogin = (e) => {    
+    const { name } = e.target
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+    this.setState({
+      [name]:value
+    })
+} 
+
   render(){
+
+    const { email, password, checkbox, test } = this.props    
     return(
       <form className="form-login">
         <div>
@@ -13,6 +28,7 @@ class Login extends Component {
               <p className="label-inputs">Digite seu email</p>
           </label>
           <Input 
+            onChange = {(e) => email(e.target.value)}             
             type = 'email'
             name = 'email'
             id = 'email-input'
@@ -25,6 +41,7 @@ class Login extends Component {
             <p className="label-inputs">Digite sua senha</p>
           </label>
           <Input
+            onChange = {(e) => password(e.target.value)}       
             type= 'password'
             name = 'password'
             id = 'password-input'
@@ -37,6 +54,7 @@ class Login extends Component {
           <p className="label-inputs">Mantenha-me conectado</p>
         </label>
         <Input 
+          onChange = {(e) => checkbox(e.target.checked)}   
           type= 'checkbox'
           name = 'checkbox'
           id = 'checkbox-input'                  
@@ -44,11 +62,10 @@ class Login extends Component {
         </div>
         <div className="container-btn-login">
           <Input 
-            type = 'button'
-            name = 'button'
+            type = 'button'           
             value = 'Conectar-me'
             id = 'button-form-login'
-            className = 'btn-login'
+            className = 'btn-login'                     
           />
         </div>        
       </form>
@@ -56,4 +73,32 @@ class Login extends Component {
   }
 }
 
-export default Login
+function mapDispatchToProps(dispatch) {
+  return {
+    email: (email) => dispatch(loginEmail(email)),
+    password: (password) => dispatch(loginPassword(password)),
+    checkbox: (checkbox) => dispatch(loginCheckbox(checkbox))
+  }
+}
+
+// function mapDispatchToProps(dispatch) {
+//   const obj = {
+//     email: 'foa@foa.com',
+//     password:'123',
+//     checkbox:false,
+//   }  
+//   return {
+//     test: () => dispatch(testReducer(obj))
+//   }
+// }
+
+function mapStateToProps(state) {  
+  return {
+    email: state.loginReducer.email,
+    password: state.loginReducer.password,
+    checkbox: state.loginReducer.checkbox,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
+

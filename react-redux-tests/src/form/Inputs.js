@@ -2,7 +2,7 @@ import React from "react";
 
 export default class Input extends React.Component {
   render(){
-    const { type, name, value,  onChange, placeholder, className } = this.props
+    const { type, name, value,  onChange, placeholder, className, onClick } = this.props
     return(
       <div className="input-container">
         <input 
@@ -13,6 +13,7 @@ export default class Input extends React.Component {
           onChange= { onChange }
           placeholder= { placeholder }
           className= { className }
+          onClick = { onClick }
         />
       </div>
     )
