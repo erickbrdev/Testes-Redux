@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event'
 import App from './App';
 import Contact from './pages/Contact';
 import Register from './pages/Register'
+import Login from './pages/Login';
 
 describe('Verificando a renderização dos componentes na página Home', () => {
   it('Verificando a renderização do menu de navegação', () => {
@@ -69,7 +70,7 @@ describe('Verificando a renderização dos componentes na página Home', () => {
 
     expect(footer).toBeInTheDocument();
   })
-})
+});
 
 describe('Verifica a renderização do componente Contato', () => {  
   const initialState = {
@@ -130,7 +131,7 @@ describe('Verifica a renderização do componente Contato', () => {
     expect(facebook).toBeInTheDocument();
     expect(linkedin).toBeInTheDocument();
   })    
-})
+});
 
 describe('Verifica a renderização do componente Cadastra-se', () => {
   const initialState = {
@@ -196,4 +197,58 @@ describe('Verifica a renderização do componente Cadastra-se', () => {
     expect(cep).toBeInTheDocument();
     expect(radio_confirm).toBeInTheDocument();
   })  
+});
+
+describe('Verificando a renderização do componente Login', () => {
+  const initialState = {
+    loginReducer: {
+      email:"",
+      password:"",
+      checkbox:false,
+      error:null,
+  }
+}
+  it('Verifica a renderização do titulo', () => {
+    const { history } = renderWithRouterAndRedux(<Login />, initialState, ['/login'])
+
+    const title = screen.getByRole('heading', {
+      name: /faça seu login!/i
+    }) 
+
+    expect(title).toBeInTheDocument();
+  })
+
+  it('Verifica a renderização do input', () => {
+    const INITIAL_STATE = {
+      loginReducer: {
+        email:"test@test",
+        password:"123456",
+        checkbox:true,
+        error:null,
+    }
+  }
+    const { history } = renderWithRouterAndRedux(<Login/>, INITIAL_STATE, ['/login'])
+
+    const input_email = screen.getByRole('textbox') 
+    const input_password = screen.getByPlaceholderText(/digite sua senha/i)
+    const checkbox = screen.getByRole('checkbox')
+    const btn_login = screen.getByRole('button', {
+      name: /conectar\-me/i
+    })
+
+    userEvent.type(input_email, 'email')    
+    userEvent.type(input_password, 'password')  
+    userEvent.type(checkbox, 'checkbox')  
+    userEvent.type(btn_login, 'button') 
+     
+    expect(input_email.value).toEqual('email')
+    expect(input_password.value).toEqual('password')
+    expect(checkbox.checked).not.toEqual(false)
+    expect(btn_login.value).toEqual('Conectar-me')
+
+    expect(input_email).toBeInTheDocument();
+    expect(input_password).toBeInTheDocument();
+    expect(checkbox).toBeInTheDocument();
+    expect(btn_login).toBeInTheDocument();
+  })
 })
