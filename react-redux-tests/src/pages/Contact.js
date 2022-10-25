@@ -12,6 +12,7 @@ class Contact extends Component {
           <div className="container-contact-infos">
             <p className="label-contact">Nome</p>
             <Input 
+              test  = 'input-name-contact'
               type = 'text'
               name = 'text'
               placeholder = 'Digite seu nome'
@@ -20,6 +21,7 @@ class Contact extends Component {
             />
             <p className="label-contact">E-mail</p>
             <Input 
+              test  = 'input-email-contact'
               type = 'email'
               name = 'email'
               placeholder = 'Digite seu email'
@@ -29,6 +31,7 @@ class Contact extends Component {
           </div>        
           <h1 className="subtitle-contact">Envie sua mensagem!</h1>
           <textarea
+          data-testid = 'textarea'
           cols='50'
           rows = '10'
           >

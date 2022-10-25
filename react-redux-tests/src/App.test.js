@@ -1,6 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
+import userEvent from '@testing-library/user-event'
 import App from './App';
 import Contact from './pages/Contact';
 
@@ -88,5 +89,44 @@ describe('Verifica a renderização do componente Contato', () => {
    expect(titleContact).toBeInTheDocument();
   })
 
+  it('Verifica a renderização dos campos de input', () => {
+    const { history } = renderWithRouterAndRedux(<Contact />, initialState, ['/contato'])
+
+    const name_input = screen.getByTestId('input-name-contact')
+    const email_input = screen.getByTestId('input-email-contact')
+    const textarea = screen.getByTestId('textarea')
+    const btn_enviar = screen.getByRole('button', {
+      name: /enviar/i
+    })
+
+    expect(name_input).toBeInTheDocument();
+    expect(email_input).toBeInTheDocument();
+    expect(textarea).toBeInTheDocument();
+    expect(btn_enviar).toBeInTheDocument();
+  })
   
+  it('Verifica a renderização das redes socias para contato', () => {
+    const { history } = renderWithRouterAndRedux(<Contact />, initialState, ['/contato'])
+
+    const github = screen.getByRole('link', {
+      name: /github 😸/i
+    })
+
+    const instagram = screen.getByRole('link', {
+      name: /instagram 📷/i
+    })
+
+    const facebook = screen.getByRole('link', {
+      name: /facebook 👤/i
+    })
+
+    const linkedin = screen.getByRole('link', {
+      name: /linkedin 👨🏽‍💻/i
+    })
+
+    expect(github).toBeInTheDocument();
+    expect(instagram).toBeInTheDocument();
+    expect(facebook).toBeInTheDocument();
+    expect(linkedin).toBeInTheDocument();
+  })
 })
