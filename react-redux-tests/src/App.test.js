@@ -4,6 +4,7 @@ import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 import userEvent from '@testing-library/user-event'
 import App from './App';
 import Contact from './pages/Contact';
+import Register from './pages/Register'
 
 describe('Verificando a renderização dos componentes na página Home', () => {
   it('Verificando a renderização do menu de navegação', () => {
@@ -79,7 +80,7 @@ describe('Verifica a renderização do componente Contato', () => {
       error:null,
   }
 }
-  it('Verifica a renderização do title', () => {
+  it('Verifica a renderização do titulo', () => {
     const { history } = renderWithRouterAndRedux(<Contact />, initialState, ['/contato'])
 
     const titleContact = screen.getByRole('heading', {
@@ -128,5 +129,71 @@ describe('Verifica a renderização do componente Contato', () => {
     expect(instagram).toBeInTheDocument();
     expect(facebook).toBeInTheDocument();
     expect(linkedin).toBeInTheDocument();
+  })    
+})
+
+describe('Verifica a renderização do componente Cadastra-se', () => {
+  const initialState = {
+    loginReducer: {
+      email:"",
+      password:"",
+      checkbox:false,
+      error:null,
+  }
+}
+
+  it('Verifica a renderização do titulo', () => {
+    const { history } = renderWithRouterAndRedux(<Register />, initialState, ['/cadastro'])
+
+    const title = screen.getByRole('heading', {
+      name: /cadastre\-se!/i
+    })
+
+    expect(title).toBeInTheDocument();
   })
+
+
+  it('Verifica a renderização dos inputs para o recebimento de informação', () => {
+    const { history } = renderWithRouterAndRedux(<Register />, initialState, ['/cadastro'])
+
+    const input_name = screen.getByRole('textbox', {
+      name: /digite seu nome/i
+    })
+
+    const input_email = screen.getByRole('textbox', {
+      name: /digite seu email/i
+    })
+
+    const input_radioPF = screen.getByRole('radio', {
+      name: /pessoa fisica/i
+    })
+
+    const input_radioPJ = screen.getByRole('radio', {
+      name: /pessoa júridica/i
+    })
+
+    const password = screen.getByLabelText(/digite sua senha/i)
+
+    const confirm_password = screen.getByLabelText(/confirme sua senha/i)
+
+    const cpf = screen.getByRole('textbox', {
+      name: /digite seu cpf/i
+    })
+
+    const cep = screen.getByRole('textbox', {
+      name: /digite seu cep/i
+    })
+
+    const radio_confirm = screen.getByTestId('radio');
+
+    expect(input_name).toBeInTheDocument();
+    expect(input_email).toBeInTheDocument();
+    expect(input_radioPF).toBeInTheDocument();
+    expect(input_radioPJ).toBeInTheDocument();
+    expect(password).toBeInTheDocument();
+    expect(confirm_password).toBeInTheDocument();
+    expect(cpf).toBeInTheDocument();
+    expect(cep).toBeInTheDocument();
+    expect(radio_confirm).toBeInTheDocument();
+  })  
 })

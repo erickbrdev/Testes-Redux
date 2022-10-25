@@ -95,6 +95,7 @@ class Register extends Component {
             <p className="label-register">Eu li e concordo com os termos de uso</p>           
         </label> 
         <Input 
+            test = 'radio'
             type = 'radio'
             name = 'radio'
             id = 'input-radio-register'                                  
